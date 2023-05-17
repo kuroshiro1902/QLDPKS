@@ -1,0 +1,9 @@
+.management{
+    display: flex;
+  }
+  .management>*:first-child{
+    width: 20%;
+  }
+  .management>*:last-child{
+    flex: 1;
+  }

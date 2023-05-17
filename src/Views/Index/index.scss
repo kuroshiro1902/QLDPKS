@@ -1,0 +1,9 @@
+.entry{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.entry button{
+    padding:16px; border-radius: 4px; background: var(--green);color:#fff;font-size: 30px;
+}
