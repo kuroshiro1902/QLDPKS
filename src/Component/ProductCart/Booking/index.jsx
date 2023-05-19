@@ -1,10 +1,12 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalData } from "../../GlobalContext";
 import s from "./index.module.scss"
 function Booking({ handleHide, room, action}) {
     const customerName = useRef()
     const customerPhone = useRef()
-    const isFree = room.isFree === 1 ? "Còn phòng" : "Hết phòng"
+    const [cusName, setCusName] = useState("")
+    const [cusPhone, setCusPhone] = useState("")
+    const isFree = room.isFree === 1 ? "Còn phòng" : "Khách hàng đã đặt phòng"
     const {bookRoom, checkOut} = useContext(GlobalData)
     const handleBooking = ()=>{
         const name = customerName.current.value.trim()
@@ -20,14 +22,32 @@ function Booking({ handleHide, room, action}) {
         checkOut(room.id)
         handleHide()
     }
+    useEffect(()=>{
+        fetch(`http://localhost:9999/QLDPKS/customer?roomid=${room.id}`)
+        .then(response=>response.json())
+        .then((data)=>{
+            setCusName(data.name)
+            setCusPhone(data.phone)
+        })
+        .catch((error)=>{
+            setCusName("Can't find this Customer")
+            setCusPhone("Can't find this Customer")
+        })
+    },[])
     return (
         <div className="overlay">
             <div className="dialog">
-                <h2 style={{marginBottom: "8px"}}>Đặt phòng</h2>
+                <h2 style={{marginBottom: "8px"}}>{action==='checkin'?"Đặt phòng":"Trả phòng"}</h2>
                 <h3 className="product-name">{room.name}</h3>
                 <p className="product-type">Loại: {room.type}</p>
                 <p className="product-price">$ {room.price}</p>
                 <p className={`product-status ${room.isFree === 1 ? "isFree" : ""}`}>{isFree}</p>
+                {action!=='checkin' && 
+                    <>
+                    <div style={{display: "flex"}}>Tên khách hàng: <h3 style={{marginLeft: "4px"}} className="product-price"> {cusName}</h3> </div>
+                    <div style={{display: "flex"}}>Số điện thoại: <h3 style={{marginLeft: "4px"}} className="product-price"> {cusPhone}</h3> </div>
+                    </>
+                }
                 {action==='checkin'?
                     <>
                     <div className={s.customerInfo} style={{display: "flex", flexDirection:"column"}}>

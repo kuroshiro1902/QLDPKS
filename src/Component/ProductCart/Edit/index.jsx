@@ -4,17 +4,22 @@ function Edit({handleHide,room}) {
     const [name, setName] = useState(room.name)
     const [type, setType] = useState(room.type)
     const [price, setPrice] = useState(room.price)
-    const {editRoom} = useContext(GlobalData)
+    const {editRoom, deleteRoom} = useContext(GlobalData)
+    const roomdata = {
+        id: room.id, 
+        name: name? name.trim(): null, 
+        type: type, 
+        price: parseFloat(price),
+        isFree: room.isFree
+    }
     const handleEditRoom = ()=>{
         if(!name || isNaN(Number(price))){alert("Invalid Information"); return}
-        const editRoomData = {
-            id: room.id, 
-            name: name.trim(), 
-            type: type, 
-            price: parseFloat(price),
-            isFree: room.isFree
-        }
-        editRoom(editRoomData)
+        
+        editRoom(roomdata)
+        handleHide()
+    }
+    const handleDeleteRoom = ()=>{
+        deleteRoom(roomdata)
         handleHide()
     }
     return(
@@ -43,6 +48,7 @@ function Edit({handleHide,room}) {
                 Giá: $<input className="product-price" value={price} onChange={(e)=>setPrice(e.target.value)} />
             </div>
             <button className="submit" onClick={handleEditRoom}>Done</button>
+            <button style={{margin:"0 8px"}} className="delete" onClick={handleDeleteRoom}>Delete</button>
             <button className="cancel" onClick={handleHide}>Cancel</button>
         </div>
     </div>

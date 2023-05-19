@@ -8,6 +8,12 @@ function GlobalContext({ children }) {
     const [rooms, setRooms] = useState([])
     const [services, setServices] = useState([])
     const [revenues, setRevenues] = useState([])
+    //
+    function handleSuccess(message){
+        setLoad(true)
+        setChange(!change)
+        setToast({ show: true, message: message})
+    }
     console.log("re-render")
     //Rooms
     const addRoom = (newRoom) => {
@@ -17,21 +23,17 @@ function GlobalContext({ children }) {
         })
             .then(res => res.json())
             .then(data => {
-                setLoad(true)
-                setChange(!change)
-                setToast({ show: true, message: "Add room success!" })
+                handleSuccess("Add room success!")
             })
             .catch(err => { console.log(err) })
     }
     const bookRoom = (name, phone, id) => {
         console.log(name, phone, id);
-        fetch(`http://localhost:9999/QLDPKS/booking?name=${name}&phone=${phone}&id=${id}`, { method: "POST" })
+        fetch(`http://localhost:9999/QLDPKS/booking?name=${name}&phone=${phone}&id=${id}`)
             .then(res => res.json())
             .then((data) => {
                 console.log(data);
-                setLoad(true)
-                setChange(!change)
-                setToast({ show: true, message: "Booking success!" })
+                handleSuccess("Booking Success!")
             })
             .catch(err => { console.log(err) })
     }
@@ -44,22 +46,31 @@ function GlobalContext({ children }) {
             .then(res => res.json())
             .then((data) => {
                 console.log(data);
-                setLoad(true)
-                setChange(!change)
-                setToast({ show: true, message: "Edit success!" })
+                handleSuccess("Edit Room Success!")
             })
             .catch(err => { console.log(err) })
     }
+    const deleteRoom = (room) => {
+        fetch(`http://localhost:9999/QLDPKS/room?method=delete`, { 
+            method: "POST",
+            body: JSON.stringify(room)
+        })
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                handleSuccess("Delete Room Success!")
+            })
+            .catch(err => { console.log(err) })
+    }
+    //customer
     const checkOut = (roomid)=>{
         fetch(`http://localhost:9999/QLDPKS/booking?roomid=${roomid}`, { 
-            method: "DELETE"
+            method: "POST"
         })
         .then(res => res.json())
         .then((data) => {
             console.log(data);
-            setLoad(true)
-            setChange(!change)
-            setToast({ show: true, message: "Checkout success!" })
+            handleSuccess("Check out success!")
         })
         .catch(err => { console.log(err) })
     }
@@ -71,9 +82,7 @@ function GlobalContext({ children }) {
         })
         .then(res => res.json())
             .then(data => {
-                setLoad(true)
-                setChange(!change)
-                setToast({ show: true, message: "Add Service success!" })
+                handleSuccess("Add service success")
             })
             .catch(err => { console.log(err) })
     }
@@ -84,9 +93,18 @@ function GlobalContext({ children }) {
         })
         .then(res => res.json())
         .then((data) => {
-            setLoad(true)
-            setChange(!change)
-            setToast({ show: true, message: "Edit success!" })
+            handleSuccess("Edit service success")
+        })
+        .catch(err => { console.log(err) })
+    }
+    const deleteService = (service)=>{
+        fetch(`http://localhost:9999/QLDPKS/service?method=delete`, { 
+            method: "POST",
+            body: JSON.stringify(service)
+        })
+        .then(res => res.json())
+        .then((data) => {
+            handleSuccess("Delete service success")
         })
         .catch(err => { console.log(err) })
     }
@@ -114,7 +132,7 @@ function GlobalContext({ children }) {
     return (
         <>
             {load ? <div>Loading...</div> :
-                <GlobalData.Provider value={{ rooms, services, revenues, addRoom, bookRoom, editRoom, addService, editService, checkOut }}>{children}</GlobalData.Provider>}
+                <GlobalData.Provider value={{ rooms, services, revenues, addRoom, bookRoom, editRoom, addService, deleteService ,deleteRoom ,editService, checkOut }}>{children}</GlobalData.Provider>}
             {toast.show && (
                 <Toast
                     message={toast.message}

@@ -1,4 +1,4 @@
-import {useState, useContext, createContext } from "react";
+import {useState, useContext, createContext, memo } from "react";
 import Main from "./Main";
 import Navbar from "./Navbar";
 
@@ -8,7 +8,6 @@ import Analyst from "../Analyst";
 export const ManagementContext = createContext()
 import "./index.scss"
 function Management() {
-
     const managers = [<Room/>,<Service />,<Analyst />]
     const [currentManager, setCurrentManager] = useState(1)
     return ( 
@@ -21,4 +20,4 @@ function Management() {
     );
 }
 
-export default Management;
+export default memo(Management);
