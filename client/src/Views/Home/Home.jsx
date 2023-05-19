@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import GlobalContext from "../../Component/GlobalContext";
 import Management from "../../Component/Management";
 import UserInformation from "../../Component/UserInformation";
