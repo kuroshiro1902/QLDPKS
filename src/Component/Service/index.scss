@@ -1,0 +1,14 @@
+.service{
+    display: flex;
+    padding: 8px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.servicebtns{
+    display: flex;
+    justify-content: end;
+    padding: 0 16px;
+    >*{
+        margin: 0 8px;
+    }
+}

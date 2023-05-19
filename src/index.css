@@ -78,3 +78,11 @@ button.cancel{
     background-color: #fff;
     color: #05b8a6
 }
+button.delete{
+    padding: 8px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    background-color: #e85757;
+    color: #ffffff
+}

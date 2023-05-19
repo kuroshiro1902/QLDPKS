@@ -1,0 +1,10 @@
+.customerInfo{
+    display: flex;
+    flex-direction: column;
+    &>input{
+        max-width: 280px;
+        padding: 4px;
+        margin: 4px 0;
+        margin-bottom: 8px;
+    }
+}
