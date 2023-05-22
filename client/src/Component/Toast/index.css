@@ -3,13 +3,12 @@
     top: 10%;
     right: 20%;
     transform: translateX(-50%);
-    background-color: #05b859;
-    color: #fff;
+    background-color: #14d56e;
+    color: #fff0ee;
     padding: 10px 20px;
     border-radius: 4px;
     opacity: 0;
-    border: 1px solid #fff ;
-    box-shadow: 0 0 4px #000;
+    box-shadow: 0 0 4px #14d56e;
     transition: opacity 0.3s ease-in-out;
     display: flex;
   }
@@ -27,9 +26,11 @@
     border: none;
     background-color: rgb(228, 87, 87);
     color: #fff;
+    border-radius: 50%;
     font-size: 16px;
     cursor: pointer;
-    padding: 0 4px;
+    width: 24px;
+    aspect-ratio: 1/1;
     margin-left: 4px;
 
   }

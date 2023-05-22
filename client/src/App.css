@@ -5,6 +5,7 @@
 }
 :root{
   --green: #009688;
+  --pending: #e8c457;
 }
 .overlay {
   position: fixed;

@@ -86,3 +86,11 @@ button.delete{
     background-color: #e85757;
     color: #ffffff
 }
+button.pending{
+    padding: 8px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    background-color: #e8c457;
+    color: #ffffff
+}

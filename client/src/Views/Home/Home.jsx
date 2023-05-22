@@ -7,6 +7,7 @@ function Home() {
     <>
     <h1>Quản lý đặt phòng khách sạn</h1>
     <UserInformation />
+    <div style={{marginBottom: "8px"}}></div>
     <div>
         <GlobalContext>
             <Management />

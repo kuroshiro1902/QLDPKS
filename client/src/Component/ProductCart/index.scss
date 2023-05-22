@@ -6,6 +6,15 @@
     width: 200px;
     margin: 8px auto;
     text-align: unset;
+    .booking{
+      color: var(--green) !important
+    }
+    .cancel{
+      color: red !important
+    }
+    .pending{
+      color: var(--pendings) !important
+    }
   }
   
   .product-name {
@@ -28,6 +37,4 @@
     color: #ff0000;
     font-style: italic;
   }
-  .isFree{
-    color: var(--green) !important
-  }
+ 

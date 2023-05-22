@@ -66,6 +66,26 @@ public class CustomerDAO extends DAO{
                 + customer.getRoom_id()+")";
         if (this.updateCustomerByQuery(query1)){
             try {
+                String query2 = "update room set isFree = 11 where id =" + customer.getRoom_id();
+                new RoomDAO().updateRoomByQuery(query2);
+                return query2;
+            } catch (Exception e) {
+                return "Update room failed";
+            } 
+        }
+        else
+        return query1;
+    }
+    
+    public String checkIn(Customer customer){
+        String query = "delete from customer where room_id = "+customer.getRoom_id();
+        this.updateCustomerByQuery(query);
+        String query1 = "insert into Customer values ('"
+                + customer.getName()+"','"
+                + customer.getPhone()+"',"
+                + customer.getRoom_id()+")";
+        if (this.updateCustomerByQuery(query1)){
+            try {
                 String query2 = "update room set isFree = 0 where id =" + customer.getRoom_id();
                 RoomDAO rd = new RoomDAO();
                 rd.updateRoomByQuery(query2);
@@ -79,9 +99,25 @@ public class CustomerDAO extends DAO{
         else
         return query1;
     }
+    public String waitcheckOut(int roomid){
+            try {
+                String query = "update room set isFree = 10 where id = " + roomid;
+                RoomDAO rd = new RoomDAO();
+                rd.updateRoomByQuery(query);
+                return query;
+            } catch (Exception e) {
+                return "Update room failed";
+            } 
+    }
     public String checkOut(int roomid){
         String query = "delete from Customer where room_id = "+roomid;
         query += "\n update room set isFree = 1 where id = "+roomid;
+        this.updateCustomerByQuery(query);
+        return query;
+    }
+    public String cancelCheckIn(Customer customer){
+        String query = "delete from Customer where room_id = " + customer.getRoom_id();
+        query+= "\n update room set isFree = 1 where id = " + customer.getRoom_id();
         this.updateCustomerByQuery(query);
         return query;
     }

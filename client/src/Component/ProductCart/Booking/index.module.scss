@@ -7,4 +7,13 @@
         margin: 4px 0;
         margin-bottom: 8px;
     }
+    .booking{
+        color: var(--green) !important
+      }
+      .cancel{
+        color: red !important
+      }
+      .pending{
+        color: var(--pendings) !important
+      }
 }

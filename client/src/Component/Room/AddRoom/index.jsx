@@ -28,8 +28,6 @@ function AddRoom({hideAddRoom}) {
     setRoomType('Single');
     setRoomPrice('');
     hideAddRoom()
-    //hide AddRoom
-    hideAddRoom()
   };
 
   return (

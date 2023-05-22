@@ -7,8 +7,9 @@ import Service from "../Service";
 import Analyst from "../Analyst";
 export const ManagementContext = createContext()
 import "./index.scss"
+import Account from "../../Account";
 function Management() {
-    const managers = [<Room/>,<Service />,<Analyst />]
+    const managers = [<Room/>,<Service />,<Analyst />, <Account />]
     const [currentManager, setCurrentManager] = useState(1)
     return ( 
         <ManagementContext.Provider value={{currentManager,setCurrentManager}}>

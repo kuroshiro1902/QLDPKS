@@ -74,6 +74,41 @@ function GlobalContext({ children }) {
         })
         .catch(err => { console.log(err) })
     }
+    const checkIn = (customer)=>{
+        fetch(`http://localhost:9999/QLDPKS/check?action=checkin`, { 
+            method: "POST",
+            body: JSON.stringify(customer)
+        })
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+            handleSuccess("Check in success!")
+        })
+        .catch(err => { console.log(err) })
+    }
+    const waitCheckOut = (roomid)=>{
+        fetch(`http://localhost:9999/QLDPKS/check?action=checkout&roomid=${roomid}`, { 
+            method: "POST"
+        })
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+            handleSuccess("waiting for Checkout success!")
+        })
+        .catch(err => { console.log(err) })
+    }
+    const cancelCheckIn = (customer)=>{
+        fetch(`http://localhost:9999/QLDPKS/check?action=cancel`, { 
+            method: "POST",
+            body: JSON.stringify(customer)
+        })
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+            handleSuccess("Cancel checkin success!")
+        })
+        .catch(err => { console.log(err) })
+    }
     //Services
     const addService = (service) => {
         fetch(`http://localhost:9999/QLDPKS/service?method=add`, { 
@@ -132,7 +167,15 @@ function GlobalContext({ children }) {
     return (
         <>
             {load ? <div>Loading...</div> :
-                <GlobalData.Provider value={{ rooms, services, revenues, addRoom, bookRoom, editRoom, addService, deleteService ,deleteRoom ,editService, checkOut }}>{children}</GlobalData.Provider>}
+                <GlobalData.Provider value={{ 
+                    rooms, services, revenues, 
+                    addRoom, bookRoom, editRoom, 
+                    addService, deleteService ,
+                    deleteRoom ,editService, 
+                    checkOut, waitCheckOut, checkIn, cancelCheckIn }}
+                >
+                    {children}
+                </GlobalData.Provider>}
             {toast.show && (
                 <Toast
                     message={toast.message}
